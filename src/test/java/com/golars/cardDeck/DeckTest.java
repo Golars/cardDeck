@@ -11,8 +11,12 @@ public class DeckTest {
         Card card = deck.dealCard();
 
         Deck deckShuffle = new Deck(1);
+
         deckShuffle.shuffle();
         Card cardShuffle = deckShuffle.dealCard();
+        if(cardShuffle.getSuit() == card.getSuit() && cardShuffle.getSuit() == card.getSuit()) {
+            deckShuffle.shuffle();
+        }
 
         assertNotEquals(card.toString(), cardShuffle.toString());
     }
