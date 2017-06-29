@@ -6,6 +6,17 @@ import static org.junit.Assert.*;
 
 public class DeckTest {
     @Test
+    public void getCard() throws Exception {
+        Deck deck = new Deck(1);
+        Card[] cards = deck.getCardDeck();
+
+        Card firstCard = deck.getCard(0);
+        assertEquals(cards[0].getValue(), firstCard.getValue());
+        assertEquals(cards[0].getSuit(), firstCard.getSuit());
+        assertEquals(deck.remainingCards(), Deck.COUNT_CARD - 1);
+    }
+
+    @Test
     public void shuffle() throws Exception {
         Deck deck = new Deck(1);
         Card card = deck.dealCard();
@@ -27,20 +38,20 @@ public class DeckTest {
         assertEquals(deck.remainingCards(), Deck.COUNT_CARD);
 
         deck.dealCard();
-        assertEquals(deck.remainingCards(), Deck.COUNT_CARD - 1);
+        assertEquals(Deck.COUNT_CARD - 1, deck.remainingCards());
 
         deck.dealCard();
-        assertEquals(deck.remainingCards(), Deck.COUNT_CARD - 2);
+        assertEquals(Deck.COUNT_CARD - 2, deck.remainingCards());
 
         int allCards = Deck.COUNT_CARD * 3;
         deck = new Deck(3);
-        assertEquals(deck.remainingCards(), allCards);
+        assertEquals(allCards, deck.remainingCards());
 
         deck.dealCard();
-        assertEquals(deck.remainingCards(), allCards - 1);
+        assertEquals(allCards - 1, deck.remainingCards());
 
         deck.dealCard();
-        assertEquals(deck.remainingCards(), allCards - 2);
+        assertEquals(allCards - 2, deck.remainingCards());
     }
 
     @Test
@@ -56,6 +67,6 @@ public class DeckTest {
         Deck deck = new Deck(1);
         assertEquals(deck.getCardDeck().length, Deck.COUNT_CARD);
         deck.dealCard();
-        assertEquals(deck.getCardDeck().length, Deck.COUNT_CARD);
+        assertEquals(deck.getCardDeck().length, Deck.COUNT_CARD - 1);
     }
 }

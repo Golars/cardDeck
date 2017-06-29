@@ -1,14 +1,13 @@
 package com.golars.cardDeck;
 
 import com.golars.cardDeck.Exception.CardDeckException;
-import com.golars.cardDeck.Exception.DeckEmptyException;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 
 public class Deck {
-    private Card[] cardDeck;
+    private ArrayList<Card> cardDeck;
     private static SecureRandom randomGenerator = new SecureRandom();
-    private int cardUsed = 0;
     public static final int COUNT_CARD = 52;
 
     /**
@@ -22,8 +21,7 @@ public class Deck {
      * Initializes a specified number of decks.
      */
     public Deck(int numDeck) throws CardDeckException {
-        cardDeck = new Card[numDeck * COUNT_CARD];
-        int cardCount = 0;
+        cardDeck = new ArrayList<Card>(numDeck * COUNT_CARD);
         // Number of decks to initialize.
         for (int i = 0; i < numDeck; i++) {
             // Assign cards suits 0, 1, 2, 3 to deck
@@ -31,8 +29,7 @@ public class Deck {
                 //Assign card values Ace to King to deck
                 for (int cardValue = Card.ACE; cardValue <= Card.KING; cardValue++) {
                     Card card = new Card(cardValue, cardSuit);
-                    cardDeck[cardCount] = card;
-                    cardCount++;
+                    cardDeck.add(card);
                 }
             }
         }
@@ -42,11 +39,11 @@ public class Deck {
      * Shuffles the deck
      */
     public void shuffle() {
-        for (int i = cardDeck.length-1; i >= 0; i--) {
+        for (int i = cardDeck.size()-1; i >= 0; i--) {
             int randomNumber = randomGenerator.nextInt(i + 1);
-            Card lastCard = cardDeck[i];
-            cardDeck[i] = cardDeck[randomNumber];
-            cardDeck[randomNumber] = lastCard;
+            Card lastCard = cardDeck.get(i);
+            cardDeck.set(i, cardDeck.get(randomNumber));
+            cardDeck.set(randomNumber, lastCard);
         }
     }
 
@@ -55,7 +52,7 @@ public class Deck {
      * @return Number of cards remaining in a deck.
      */
     public int remainingCards() {
-        return cardDeck.length - cardUsed;
+        return cardDeck.size();
     }
 
     /**
@@ -63,16 +60,23 @@ public class Deck {
      * @return A card from the top of the deck.
      */
     public Card dealCard() throws CardDeckException {
-        if (!isCardsLeft()) {
-            throw new DeckEmptyException();
+        return this.getCard(0);
+    }
+
+    /**
+     * Get card by index
+     */
+    public Card getCard(int index) throws CardDeckException {
+        if(cardDeck.size() < index) {
+            throw new CardDeckException("Index is invalid");
         }
-        Card card = cardDeck[cardUsed];
-        cardUsed++;
+        Card card = cardDeck.get(index);
+        cardDeck.remove(index);
         return card;
     }
 
     public boolean isCardsLeft() {
-        return (cardUsed < cardDeck.length);
+        return (cardDeck.size() > 0);
     }
 
     /**
@@ -80,7 +84,8 @@ public class Deck {
      * @return Card[]
      */
     public Card[] getCardDeck() {
-        return cardDeck;
+        Card[] array = new Card[cardDeck.size()];
+        return cardDeck.toArray(array);
     }
 
 }
