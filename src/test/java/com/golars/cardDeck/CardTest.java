@@ -4,10 +4,13 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CardTest {
+
+public class CardTest
+{
 
     @Test
-    public void getValue() throws Exception {
+    public void getValue() throws Exception
+    {
         Card card = new Card(Card.ACE, Card.SPADES);
         assertEquals(card.getValue(), Card.ACE);
 
@@ -15,8 +18,10 @@ public class CardTest {
         assertEquals(cardNew.getValue(), Card.QUEEN);
     }
 
+
     @Test
-    public void getSuit() throws Exception {
+    public void getSuit() throws Exception
+    {
         Card card = new Card(Card.ACE, Card.SPADES);
         assertEquals(card.getSuit(), Card.SPADES);
 
@@ -24,8 +29,10 @@ public class CardTest {
         assertEquals(cardNew.getSuit(), Card.HEARTS);
     }
 
+
     @Test
-    public void getSuitString() throws Exception {
+    public void getSuitString() throws Exception
+    {
         Card card = new Card(Card.ACE, Card.SPADES);
         assertEquals(card.getSuitString(), "SPADES");
 
@@ -33,8 +40,10 @@ public class CardTest {
         assertEquals(cardNew.getSuitString(), "HEARTS");
     }
 
+
     @Test
-    public void getValueString() throws Exception {
+    public void getValueString() throws Exception
+    {
         Card card = new Card(Card.ACE, Card.SPADES);
         assertEquals(card.getValueString(), "Ace");
 

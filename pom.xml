@@ -4,7 +4,7 @@
   <groupId>com.golars.cardDeck</groupId>
   <artifactId>cardDeck</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.1</version>
   <name>cardDeck</name>
   <url>http://maven.apache.org</url>
   <dependencies>
